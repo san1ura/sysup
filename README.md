@@ -1,5 +1,3 @@
-# 🚀 sysup - Advanced Arch Linux System Update Tool
-
 [![Version](https://img.shields.io/badge/version-3.0.0-blue.svg)](https://github.com/san1ura/sysup)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![Python](https://img.shields.io/badge/python-3.8+-yellow.svg)](https://www.python.org/)
@@ -7,22 +5,22 @@
 
 A powerful, feature-rich system update manager for Arch Linux that handles Pacman, AUR helpers (yay/paru), Flatpak packages, and Git repositories - all in one place.
 
-## ✨ Features
+## Features
 
-- 🔄 **Unified Updates**: Update Pacman, AUR, Flatpak, and Git repos with a single command
-- 🔍 **Dry Run Mode**: Preview what will be updated before making changes
-- 💾 **Automatic Backups**: Create package list backups before each update
-- 📊 **Statistics Tracking**: Monitor update history and most frequently updated packages
-- 🔔 **Smart Notifications**: Desktop notifications and webhook support (Discord/Slack)
-- ⚡ **Parallel Updates**: Optional parallel execution for faster updates
-- 🧹 **Maintenance Tools**: Clean orphaned packages and cache
-- ⏰ **Scheduled Updates**: Set up automatic daily or weekly updates via cron
-- 🎣 **Pre/Post Hooks**: Run custom scripts before and after updates
-- 📦 **Git Repository Tracking**: Automatically update your dotfiles and config repos
-- 🎨 **Colorful Output**: Beautiful, easy-to-read terminal interface
-- ⚙️ **Configurable**: Customize behavior via JSON configuration
+-  **Unified Updates**: Update Pacman, AUR, Flatpak, and Git repos with a single command
+-  **Dry Run Mode**: Preview what will be updated before making changes
+-  **Automatic Backups**: Create package list backups before each update
+-  **Statistics Tracking**: Monitor update history and most frequently updated packages
+-  **Smart Notifications**: Desktop notifications and webhook support (Discord/Slack)
+-  **Parallel Updates**: Optional parallel execution for faster updates
+-  **Maintenance Tools**: Clean orphaned packages and cache
+-  **Scheduled Updates**: Set up automatic daily or weekly updates via cron
+-  **Pre/Post Hooks**: Run custom scripts before and after updates
+-  **Git Repository Tracking**: Automatically update your dotfiles and config repos
+-  **Colorful Output**: Beautiful, easy-to-read terminal interface
+-  **Configurable**: Customize behavior via JSON configuration
 
-## 📋 Requirements
+##  Requirements
 
 - **Arch Linux** or Arch-based distribution
 - **Python 3.8+**
@@ -64,7 +62,7 @@ chmod +x sysup.py
 sudo ln -s "$(pwd)/sysup.py" /usr/local/bin/sysup
 ```
 
-## 🚀 Usage
+##  Usage
 
 ### Basic Commands
 
@@ -136,7 +134,7 @@ sysup --schedule weekly
 sysup --unschedule
 ```
 
-## ⚙️ Configuration
+##  Configuration
 
 Configuration file is located at `~/.config/sysup/config.json`
 
@@ -172,7 +170,7 @@ Configuration file is located at `~/.config/sysup/config.json`
 - **webhook_url**: Discord/Slack webhook URL for notifications
 - **email_address**: Email address for notifications (future feature)
 
-## 🎣 Hooks
+##  Hooks
 
 You can run custom scripts before and after updates by placing executable scripts in:
 
@@ -203,8 +201,8 @@ chmod +x ~/.config/sysup/hooks/pre-update/backup-database.sh
 ├── repositories.json        # Tracked Git repositories
 ├── statistics.json          # Update statistics
 ├── backups/                 # Package list backups
-│   ├── packages_20240125_143022.txt
-│   └── packages_20240124_020000.txt
+│   ├── packages_20260125_143022.txt
+│   └── packages_20260124_020000.txt
 └── hooks/
     ├── pre-update/          # Pre-update hook scripts
     └── post-update/         # Post-update hook scripts
@@ -225,7 +223,7 @@ Output example:
 ```
 === Update Statistics ===
 Total Updates: 42
-Last Update: 2024-01-25 14:30:22
+Last Update: 2026-01-25 14:30:22
 
 Top 10 Most Updated Packages:
   linux: 8 times
@@ -234,9 +232,9 @@ Top 10 Most Updated Packages:
   ...
 
 Recent Updates:
-  2024-01-25 14:30:22 - pacman (23 packages)
-  2024-01-24 02:00:15 - yay (5 packages)
-  2024-01-23 10:15:30 - flatpak (2 packages)
+  2026-01-25 14:30:22 - pacman (23 packages)
+  2026-01-24 02:00:15 - yay (5 packages)
+  2026-01-23 10:15:30 - flatpak (2 packages)
 ```
 
 ## 🔔 Notifications
@@ -261,7 +259,7 @@ sudo pacman -S libnotify
 }
 ```
 
-## 🤝 Contributing
+##  Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
 
@@ -271,7 +269,7 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 4. Push to the branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-## 📝 License
+##  License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
