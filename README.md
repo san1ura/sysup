@@ -56,10 +56,10 @@ git clone https://github.com/san1ura/sysup.git
 cd sysup
 
 # Make the script executable
-chmod +x sysup.py
+chmod +x main.py
 
 # Optional: Create a symbolic link for easy access
-sudo ln -s "$(pwd)/sysup.py" /usr/local/bin/sysup
+sudo ln -s "$(pwd)/main.py" /usr/local/bin/sysup
 ```
 
 ##  Usage
