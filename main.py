@@ -26,7 +26,7 @@ class Config:
     """Application configuration constants."""
     
     author: str = "san1ura"
-    version: str = "3.0.0"
+    version: str = "2.0.6"
     app_name: str = "sysup"
     supported_helpers: Tuple[str, ...] = ("yay", "paru")
 
