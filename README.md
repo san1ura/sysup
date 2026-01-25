@@ -1,4 +1,4 @@
-[![Version](https://img.shields.io/badge/version-3.0.0-blue.svg)](https://github.com/san1ura/sysup)
+[![Version](https://img.shields.io/badge/version-2.0.6-blue.svg)](https://github.com/san1ura/sysup)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![Python](https://img.shields.io/badge/python-3.8+-yellow.svg)](https://www.python.org/)
 [![Arch Linux](https://img.shields.io/badge/platform-Arch%20Linux-1793D1.svg)](https://archlinux.org/)
