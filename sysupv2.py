@@ -1291,6 +1291,7 @@ def main() -> None:
     
     # Parse arguments
     args = parse_arguments(config)
+    parser = argparse.ArgumentParser()
     
     # Initialize managers
     stats_manager = StatisticsManager(config)
@@ -1357,7 +1358,23 @@ def main() -> None:
         
     else:
         # No arguments provided, show help
-        parse_arguments(config).print_help()
+        parser = argparse.ArgumentParser(
+            prog=config.app_name,
+            description="Advanced system update tool for Arch Linux",
+            formatter_class=argparse.RawDescriptionHelpFormatter,
+            epilog=f"""
+Examples:
+  {config.app_name} --update                    Update entire system
+  {config.app_name} --update --dry-run          Preview updates without applying
+  {config.app_name} --add-repo ~/dotfiles       Track a Git repository
+  {config.app_name} --schedule daily            Setup daily automatic updates
+  {config.app_name} --stats                     Show update statistics
+  {config.app_name} --clean-orphans             Remove orphaned packages
+  
+Version {config.version} by {config.author}
+        """
+        )
+        parser.print_help()
 
 
 if __name__ == "__main__":
