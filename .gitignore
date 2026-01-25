@@ -44,7 +44,7 @@ env/
 test_*.py
 *_test.py
 
-# Personal configuration (don't push personal configs)
+# Personal configuration 
 config.json
 repositories.json
 statistics.json
