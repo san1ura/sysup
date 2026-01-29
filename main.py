@@ -243,7 +243,7 @@ class Utils:
                 
         except subprocess.CalledProcessError as error:
             logging.error(f"Failed to clear cache for {helper}: {error}")
-            print(f"{Fore.RED}Error clearing cache: {error}{Style.RESET_ALL}")
+            print(f"[{Fore.RED+Style.BRIGHT} ERROR {Fore.RESET}] {Fore.RED}Error clearing cache: {error}{Style.RESET_ALL}")
             raise
 
 
@@ -496,14 +496,14 @@ class HookManager:
                 if result.returncode == 0:
                     print(f"{Fore.GREEN}✓ {script.name}{Style.RESET_ALL}")
                 else:
-                    print(f"{Fore.RED}✗ {script.name} (exit code: {result.returncode}){Style.RESET_ALL}")
+                    print(f"[{Fore.RED+Style.BRIGHT} ERROR {Fore.RESET}] {Fore.RED}✗ {script.name} (exit code: {result.returncode}){Style.RESET_ALL}")
                     self.logger.error(f"Hook {script.name} failed: {result.stderr}")
                     
             except subprocess.TimeoutExpired:
-                print(f"{Fore.RED}✗ {script.name} (timeout){Style.RESET_ALL}")
+                print(f"[{Fore.RED+Style.BRIGHT} ERROR {Fore.RESET}] {Fore.RED}✗ {script.name} (timeout){Style.RESET_ALL}")
                 self.logger.error(f"Hook {script.name} timed out")
             except Exception as error:
-                print(f"{Fore.RED}✗ {script.name} (error: {error}){Style.RESET_ALL}")
+                print(f"[{Fore.RED+Style.BRIGHT} ERROR {Fore.RESET}] {Fore.RED}✗ {script.name} (error: {error}){Style.RESET_ALL}")
                 self.logger.error(f"Hook {script.name} failed: {error}")
 
 
@@ -528,12 +528,12 @@ class AURManager:
                 stdout=subprocess.PIPE,
                 check=True
             )
-            print(f"{Fore.RED}Available -> {Style.RESET_ALL}{helper.capitalize()}")
+            print(f'[ {Fore.GREEN+Style.BRIGHT}INFO {Fore.RESET}] {Fore.RESET}Available -> {Style.DIM}{helper.capitalize()}')
             self.logger.info(f"Updates available for {helper}")
             return True
             
         except subprocess.CalledProcessError:
-            print(f"{Fore.GREEN}Already up to date -> {Style.RESET_ALL}{helper.capitalize()}")
+            print(f'[ {Fore.GREEN+Style.BRIGHT}INFO {Fore.RESET}] {Fore.RESET}Already up to date -> {Style.DIM}{helper.capitalize()}')
             self.logger.info(f"No updates for {helper}")
             return False
 
@@ -549,14 +549,14 @@ class AURManager:
                 
             self.logger.info(f"Updating {helper}...")
             subprocess.run(cmd, text=True, check=True)
-            print(f"{Fore.RED}{Style.BRIGHT}Updated -> {Style.RESET_ALL}{helper.capitalize()}")
+            print(f'[ {Fore.GREEN+Style.BRIGHT}INFO {Fore.RESET}] {Fore.RESET}Updated -> {Style.DIM}{helper.capitalize()}')
             self.logger.info(f"Successfully updated {helper}")
             self.stats_manager.record_update(helper)
             return True
             
         except subprocess.CalledProcessError as error:
             error_msg = f"Error updating {helper}"
-            print(f"{Fore.RED}{error_msg}{Style.RESET_ALL}")
+            print(f"[{Fore.RED+Style.BRIGHT} ERROR {Fore.RESET}] {Fore.RED}{error_msg}{Style.RESET_ALL}")
             self.logger.error(f"{error_msg} (returncode: {error.returncode})")
             return False
 
@@ -584,12 +584,12 @@ class PacmanManager:
                 text=True,
                 check=True
             )
-            print(f"{Fore.RED}Available -> {Style.RESET_ALL}Pacman")
+            print(f'[ {Fore.GREEN+Style.BRIGHT}INFO {Fore.RESET}] {Fore.RESET}Available -> {Style.DIM}Pacman')
             self.logger.info("Updates available for Pacman")
             return True
             
         except subprocess.CalledProcessError:
-            print(f"{Fore.GREEN}Already up to date -> {Style.RESET_ALL}Pacman")
+            print(f'[ {Fore.GREEN+Style.BRIGHT}INFO {Fore.RESET}] {Fore.RESET}Already up to date -> {Style.DIM}Pacman')
             self.logger.info("No updates for Pacman")
             return False
 
@@ -605,14 +605,14 @@ class PacmanManager:
                 
             self.logger.info("Updating Pacman...")
             subprocess.run(cmd, text=True, check=True)
-            print(f"{Fore.RED}{Style.BRIGHT}Updated -> {Style.RESET_ALL}Pacman")
+            print(f'[ {Fore.GREEN+Style.BRIGHT}INFO {Fore.RESET}] {Fore.RESET}Updated -> {Style.DIM}Pacman')
             self.logger.info("Successfully updated Pacman")
             self.stats_manager.record_update("pacman")
             return True
             
         except subprocess.CalledProcessError as error:
             error_msg = f"Error updating Pacman"
-            print(f"{Fore.RED}{error_msg}{Style.RESET_ALL}")
+            print(f"[{Fore.RED+Style.BRIGHT} ERROR {Fore.RESET}] {Fore.RED}{error_msg}{Style.RESET_ALL}")
             self.logger.error(f"{error_msg} (returncode: {error.returncode})")
             return False
     
@@ -659,15 +659,11 @@ class FlatpakManager:
             if result.stdout:
                 output_lower = result.stdout.lower()
                 if "nothing to do" in output_lower or not result.stdout.strip():
-                    print(f"{Fore.GREEN}Already up to date -> {Style.RESET_ALL}Flatpak")
+                    print(f'[ {Fore.GREEN+Style.BRIGHT}INFO {Fore.RESET}] {Fore.RESET}Already up to date -> {Style.DIM}Flatpak')
                     return False
                     
-                print(f"{Fore.RED}Available -> {Style.RESET_ALL}Flatpak")
-                return True
-                
-            print(f"{Fore.GREEN}Already up to date -> {Style.RESET_ALL}Flatpak")
-            return False
-            
+            print(f'[ {Fore.GREEN+Style.BRIGHT}INFO {Fore.RESET}] {Fore.RESET}Available -> {Style.DIM}Flatpak')
+            return True
         except subprocess.CalledProcessError:
             return False
 
@@ -679,14 +675,14 @@ class FlatpakManager:
         try:
             self.logger.info("Updating Flatpak...")
             subprocess.run(["flatpak", "update", "-y"], check=True)
-            print(f"{Fore.RED}{Style.BRIGHT}Updated -> {Style.RESET_ALL}Flatpak")
+            print(f'[ {Fore.GREEN+Style.BRIGHT}INFO {Fore.RESET}] {Fore.RESET}Updated -> {Style.DIM}Flatpak')
             self.logger.info("Successfully updated Flatpak")
             self.stats_manager.record_update("flatpak")
             return True
             
         except subprocess.CalledProcessError as error:
             error_msg = f"Error updating Flatpak"
-            print(f"{Fore.RED}{error_msg}{Style.RESET_ALL}")
+            print(f"[{Fore.RED+Style.BRIGHT} ERROR {Fore.RESET}] {Fore.RED}{error_msg}{Style.RESET_ALL}")
             self.logger.error(f"{error_msg} (returncode: {error.returncode})")
             return False
 
@@ -731,24 +727,24 @@ class GitRepository:
                 self.logger.info(f"Pulling updates for {self.repo_path.name}...")
                 # Capitalize first letter of repo name
                 display_name = self.repo_path.name.capitalize()
-                print(f"{Fore.RED}{Style.BRIGHT}Available -> {Style.RESET_ALL}{display_name}")
-                
+                print(f'[ {Fore.GREEN+Style.BRIGHT}INFO {Fore.RESET}] {Fore.RESET}Available -> {Style.DIM}{display_name}')
+
                 self._run_git(["pull"])
-                
-                print(f"{Fore.RED}{Style.BRIGHT}Updated -> {Style.RESET_ALL}{display_name}")
+
+                print(f'[ {Fore.GREEN+Style.BRIGHT}INFO {Fore.RESET}] {Fore.RESET}Updated -> {Style.DIM}{display_name}')
                 self.logger.info(f"Successfully updated {self.repo_path.name}")
                 return True
             else:
                 # Capitalize first letter of repo name
                 display_name = self.repo_path.name.capitalize()
-                print(f"{Fore.GREEN}Already up to date -> {Style.RESET_ALL}{display_name}")
+                print(f'[ {Fore.GREEN+Style.BRIGHT}INFO {Fore.RESET}] {Fore.RESET}Already up to date -> {Style.DIM}{display_name}')
                 self.logger.info(f"No updates for {self.repo_path.name}")
                 return False
                 
         except subprocess.CalledProcessError as error:
             display_name = self.repo_path.name.capitalize()
             error_msg = f"Error updating {display_name}"
-            print(f"{Fore.RED}{error_msg}{Style.RESET_ALL}")
+            print(f"[{Fore.RED+Style.BRIGHT} ERROR {Fore.RESET}] {Fore.RED}{error_msg}{Style.RESET_ALL}")
             self.logger.error(
                 f"{error_msg} (returncode: {error.returncode}, "
                 f"stderr: {error.stderr if error.stderr else 'None'})"
@@ -794,7 +790,7 @@ class RepositoryManager:
             repo = GitRepository(repo_path)
             normalized_path = str(repo.repo_path)
         except ValueError as error:
-            print(f"{Fore.RED}Error: {error}{Style.RESET_ALL}")
+            print(f"[{Fore.RED+Style.BRIGHT} ERROR {Fore.RESET}] {Fore.RED}Error: {error}{Style.RESET_ALL}")
             return
         
         repos = self._load_repos()
@@ -865,7 +861,7 @@ class RepositoryManager:
                 print(f"{Fore.YELLOW}Skipping (invalid): {repo_path} - {error}{Style.RESET_ALL}")
                 self.logger.warning(f"Invalid repository: {repo_path} - {error}")
             except Exception as error:
-                print(f"{Fore.RED}Error updating {repo_path}: {error}{Style.RESET_ALL}")
+                print(f"[{Fore.RED+Style.BRIGHT} ERROR {Fore.RESET}] {Fore.RED}Error updating {repo_path}: {error}{Style.RESET_ALL}")
                 self.logger.error(f"Error updating {repo_path}: {error}")
         
         return updated_count
@@ -891,7 +887,7 @@ class CronManager:
         elif frequency == "weekly":
             cron_time = "0 2 * * 0"  # 2 AM every Sunday
         else:
-            print(f"{Fore.RED}Invalid frequency. Use 'daily' or 'weekly'{Style.RESET_ALL}")
+            print(f"[{Fore.RED+Style.BRIGHT} ERROR {Fore.RESET}] {Fore.RED}Invalid frequency. Use 'daily' or 'weekly'{Style.RESET_ALL}")
             return
         
         cron_entry = f"{cron_time} {sys.executable} {script_path} --update --noconfirm\n"
@@ -929,7 +925,7 @@ class CronManager:
             self.logger.info(f"Scheduled {frequency} updates")
             
         except Exception as error:
-            print(f"{Fore.RED}Error setting up cron job: {error}{Style.RESET_ALL}")
+            print(f"[{Fore.RED+Style.BRIGHT} ERROR {Fore.RESET}] {Fore.RED}Error setting up cron job: {error}{Style.RESET_ALL}")
             self.logger.error(f"Failed to setup cron: {error}")
     
     def remove_schedule(self) -> None:
@@ -965,12 +961,12 @@ class CronManager:
                 text=True
             )
             process.communicate(input=new_cron)
-            
+ 
             print(f"{Fore.GREEN}Removed scheduled updates{Style.RESET_ALL}")
             self.logger.info("Removed cron job")
-            
+
         except Exception as error:
-            print(f"{Fore.RED}Error removing cron job: {error}{Style.RESET_ALL}")
+            print(f"[{Fore.RED+Style.BRIGHT} ERROR {Fore.RESET}] {Fore.RED}Error removing cron job: {error}{Style.RESET_ALL}")
             self.logger.error(f"Failed to remove cron: {error}")
 
 
@@ -1108,7 +1104,7 @@ def update_system(config: Config, user_config: UserConfig, dry_run: bool = False
                 )
         
         logger.info("System update completed successfully")
-        print(f"\n{Fore.GREEN}{Style.BRIGHT}Update completed!{Style.RESET_ALL}")
+        #print(f"\n{Fore.GREEN}{Style.BRIGHT}Update completed!{Style.RESET_ALL}")
         
     except KeyboardInterrupt:
         print(f"\n{Fore.YELLOW}Update cancelled by user{Style.RESET_ALL}")
@@ -1116,7 +1112,7 @@ def update_system(config: Config, user_config: UserConfig, dry_run: bool = False
         sys.exit(0)
     except Exception as error:
         logger.error(f"Unexpected error during system update: {error}")
-        print(f"{Fore.RED}An error occurred: {error}{Style.RESET_ALL}")
+        print(f"[{Fore.RED+Style.BRIGHT} ERROR {Fore.RESET}] {Fore.RED}An error occurred: {error}{Style.RESET_ALL}")
         sys.exit(1)
 
 
@@ -1282,7 +1278,7 @@ def main() -> None:
     
     # Verify we're on Arch Linux
     if not Utils.has_helper("pacman"):
-        print(f"{Fore.RED}Error: This tool is only for Arch Linux and Arch-based distributions{Style.RESET_ALL}")
+        print(f"[{Fore.RED+Style.BRIGHT} ERROR {Fore.RESET}] {Fore.RED}Error: This tool is only for Arch Linux and Arch-based distributions{Style.RESET_ALL}")
         sys.exit(1)
     
     # Load user configuration
@@ -1321,14 +1317,14 @@ def main() -> None:
         allowed_helpers = ["pacman", "flatpak"]
         
         if helper not in allowed_helpers:
-            print(f"{Fore.RED}Error: Unsupported helper '{helper}'{Style.RESET_ALL}")
+            print(f"[{Fore.RED+Style.BRIGHT} ERROR {Fore.RESET}] {Fore.RED}Error: Unsupported helper '{helper}'{Style.RESET_ALL}")
             print(f"Supported helpers: {', '.join(allowed_helpers)}")
             sys.exit(1)
             
         try:
             Utils.clear_cache(helper)
         except Exception as error:
-            print(f"{Fore.RED}Error: {error}{Style.RESET_ALL}")
+            print(f"[{Fore.RED+Style.BRIGHT} ERROR {Fore.RESET}] {Fore.RED}Error: {error}{Style.RESET_ALL}")
             sys.exit(1)
     
     elif args.clean_orphans:
